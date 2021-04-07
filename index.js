@@ -28,7 +28,7 @@ function appQuestions() {
                 viewDepartments()
                 break;
             case "View all employees by manager":
-                viewManager()
+                viewManagers()
                 break;
             case "Add employee":
                 addEmployee()
@@ -48,3 +48,51 @@ function appQuestions() {
     })
 }
 console.log("Check status of app, how  are we doing so far?");
+
+const viewEmployees = () => {
+    connection.query("SELECT * FROM employee", (err, data) => {
+        console.table(data);
+        appQuestions();
+    })
+}
+
+const viewDepartments = () => {
+    connection.query("SELECT * FROM department", (err, data) => {
+        console.table(data);
+        appQuestions();
+    })
+}
+
+const viewManagers = () => {
+    connection.query("SELECT * FROM managers", (err, data) => {
+        console.table(data);
+        appQuestions();
+    })
+}
+
+const addEmployee = () => {
+    inquirer.prompt([{
+        type: "input",
+        name: "first name",
+        message: "what is the employee's first name?"
+    },
+    {
+    type: "input",
+    name: "last name",
+    message: "What is the employee's last name?",
+    },
+    {
+        type: "number",
+        name: "roleId",
+        message: "What is the roleId for this employee's role?"
+    },
+    {
+        type: "input",
+        name: "managerId",
+        message: "Please provide the managerId for this employee's manager",
+    }
+]).then(function(res))
+}
+
+})
+
