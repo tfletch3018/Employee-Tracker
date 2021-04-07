@@ -1,5 +1,4 @@
 const mysql = require('mysql');
-const appQuestions = require("./index");
 
 const connection = mysql.createConnection({
   host: 'localhost',
@@ -20,5 +19,3 @@ connection.connect((err) => {
   console.log(`connected as id ${connection.threadId} + "\n"`);
   appQuestions();
 });
-
-module.exports = 
