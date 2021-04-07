@@ -35,3 +35,29 @@ INSERT INTO employee (id, first_name, last_name, role_id, manager_id)
 VALUES ("14", "Claire", "Huxtable", 35, 2);
 INSERT INTO employee (id, first_name, last_name, role_id, manager_id)
 VALUES ("15", "James", "Brown", 35, 2);
+
+INSERT INTO role (id, title, salary, department_id)
+VALUES ("44", "Manager", 80000, 300);
+INSERT INTO role (id, title, salary, department_id)
+VALUES ("55", "Junior Executive", 45000, 301);
+INSERT INTO role (id, title, salary, department_id)
+VALUES ("77", "Accountant", 85000, 302);
+INSERT INTO role (id, title, salary, department_id)
+VALUES ("88", "Staffing Coordinator", 32000, 303);
+
+INSERT INTO department (id, name)
+VALUES ("300", "Sales");
+INSERT INTO department (id, name)
+VALUES ("301", "Marketing");
+INSERT INTO department (id, name)
+VALUES ("302", "Accounting");
+INSERT INTO department (id, name)
+VALUES ("303", "Human Resources");
+
+SELECT * FROM department;
+SELECT * FROM role;
+SELECT * FROM employee_trackerdb.role;
+
+-- show ALL books with authors--
+-- INNER JOIN will only return all matching values from both tables--
+-- SELECT title, firstName, lastName--
