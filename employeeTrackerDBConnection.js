@@ -1,4 +1,5 @@
 const mysql = require('mysql');
+require("./index");
 
 const connection = mysql.createConnection({
   host: 'localhost',
@@ -16,6 +17,6 @@ const connection = mysql.createConnection({
 
 connection.connect((err) => {
   if (err) throw err;
-  console.log(`connected as id ${connection.threadId}`);
-  connection.end();
+  console.log(`connected as id ${connection.threadId} + "\n"`);
+  appQuestions();
 });
