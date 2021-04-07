@@ -3,21 +3,26 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "dependencies": {
+    "inquirer": "^8.0.0",
+    "mysql": "^2.18.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.4"
+  },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js",
+    "watch": "nodemon server.js"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/tfletch3018/Employee-Tracker.git"
   },
-  "author": "",
+  "author": "Tonya Fletcher",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/tfletch3018/Employee-Tracker/issues"
   },
-  "homepage": "https://github.com/tfletch3018/Employee-Tracker#readme",
-  "dependencies": {
-    "inquirer": "^8.0.0",
-    "mysql": "^2.18.1"
-  }
+  "homepage": "https://github.com/tfletch3018/Employee-Tracker#readme"
 }
