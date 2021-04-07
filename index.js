@@ -1,6 +1,6 @@
 const mysql = require('mysql');
 const inquirer = require('inquirer');
-require("./employeeTrackerDBConnection");
+// require("./employeeTrackerDBConnection");
 
 const connection = mysql.createConnection({
   host: 'localhost',
@@ -12,13 +12,14 @@ const connection = mysql.createConnection({
   user: 'root',
 
   // Be sure to update with your own MySQL password!
-  password: 'renate',
+  password: '',
   database: 'employee_trackerDB',
 });
 
 connection.connect((err) => {
   if (err) throw err;
   console.log(`connected as id ${connection.threadId}`);
+  appQuestions();
 });
 
 const appQuestions = () => {
@@ -115,6 +116,7 @@ const addEmployee = () => {
         name: "managerId",
         message: "Please provide the managerId for this employee's manager",
     }
+
     ]).then((res) => {
         connection.query('INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUES (?, ?, ?, ?)', [res.firstName, res.lastName, res.roleId, res.managerId], function (err, data) {
             if (err) throw err;
@@ -125,11 +127,13 @@ const addEmployee = () => {
 }
 
 const addDepartment = () => {
-    inquirer.prompt([{
+    inquirer.prompt([
+        {
         type: "input",
         name: "department",
         messagee: "Which department would you like to add?"
     },
+
     ]).then((res) => {
         connection.query('INSERT INTO department (name) VALUES (?)', [res.department], ((err, data) => {
             if (err) throw err;
