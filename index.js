@@ -3,23 +3,23 @@ const inquirer = require('inquirer');
 // require("./employeeTrackerDBConnection");
 
 const connection = mysql.createConnection({
-  host: 'localhost',
+    host: 'localhost',
 
-  // Your port, if not 3306
-  port: 3306,
+    // Your port, if not 3306
+    port: 3306,
 
-  // Your username
-  user: 'root',
+    // Your username
+    user: 'root',
 
-  // Be sure to update with your own MySQL password!
-  password: '',
-  database: 'employee_trackerDB',
+    // Be sure to update with your own MySQL password!
+    password: 'renate',
+    database: 'employee_trackerDB',
 });
 
 connection.connect((err) => {
-  if (err) throw err;
-  console.log(`connected as id ${connection.threadId}`);
-  appQuestions();
+    if (err) throw err;
+    console.log(`connected as id ${connection.threadId}`);
+    appQuestions();
 });
 
 const appQuestions = () => {
@@ -29,11 +29,13 @@ const appQuestions = () => {
         choices: [
             "View all employees",
             "View all employees by department",
-            "View all employees by manager",
-            "Add employee",
-            "Remove an employee",
+            "View all employees by role",
+            "Add an employee",
+            "Add a department",
+            "Add a role",
             "Update employee role",
-            "Update employee manger",
+            "Remove an employee",
+            "Update employee manager",
             "Leave app",
         ],
         name: "options"
@@ -47,20 +49,23 @@ const appQuestions = () => {
             case "View all employees by department":
                 viewDepartments()
                 break;
-            case "View all employees by manager":
-                viewManagers()
+            case "View all employees by role":
+                viewRoles()
                 break;
-            case "Add employee":
+            case "Add an employee":
                 addEmployee()
                 break;
-            case "Add department":
+            case "Add a department":
                 addDepartment()
+                break;
+            case "Add a role":
+                addRole()
+                break;
+            case "Update an employee role":
+                addRole()
                 break;
             case "Remove an employee":
                 removeEmployee()
-                break;
-            case "Update an employee role":
-                updateRole()
                 break;
             case "Update an employee manager":
                 updateManager()
@@ -71,7 +76,7 @@ const appQuestions = () => {
     })
 }
 
-console.log("Check status of app, how  are we doing so far?");
+console.log("Status check: What is our connection id?");
 
 
 const viewEmployees = () => {
@@ -88,34 +93,35 @@ const viewDepartments = () => {
     })
 }
 
-const viewManagers = () => {
-    connection.query("SELECT * FROM managers", (err, data) => {
+const viewRoles = () => {
+    connection.query("SELECT * FROM role", (err, data) => {
         console.table(data);
         appQuestions();
     })
 }
 
 const addEmployee = () => {
-    inquirer.prompt([{
-        type: "input",
-        name: "first name",
-        message: "what is the employee's first name?"
-    },
-    {
-        type: "input",
-        name: "last name",
-        message: "What is the employee's last name?",
-    },
-    {
-        type: "number",
-        name: "roleId",
-        message: "What is the roleId for this employee's role?"
-    },
-    {
-        type: "input",
-        name: "managerId",
-        message: "Please provide the managerId for this employee's manager",
-    }
+    inquirer.prompt([
+        {
+            type: "input",
+            name: "first name",
+            message: "what is the employee's first name?"
+        },
+        {
+            type: "input",
+            name: "last name",
+            message: "What is the employee's last name?",
+        },
+        {
+            type: "number",
+            name: "roleId",
+            message: "What is the roleId for this employee's role?"
+        },
+        {
+            type: "input",
+            name: "managerId",
+            message: "Please provide the managerId for this employee's manager",
+        }
 
     ]).then((res) => {
         connection.query('INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUES (?, ?, ?, ?)', [res.firstName, res.lastName, res.roleId, res.managerId], function (err, data) {
@@ -129,10 +135,11 @@ const addEmployee = () => {
 const addDepartment = () => {
     inquirer.prompt([
         {
-        type: "input",
-        name: "department",
-        messagee: "Which department would you like to add?"
-    },
+            type: 'list',
+            message: 'Please select department',
+            name: 'department',
+            choices: ['test', 'apache', 'gnu'],
+        }
 
     ]).then((res) => {
         connection.query('INSERT INTO department (name) VALUES (?)', [res.department], ((err, data) => {
@@ -187,5 +194,3 @@ const updateRole = () => {
         appQuestions();
     })
 }
-
-module.exports = appQuestions;
