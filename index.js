@@ -1,7 +1,6 @@
 const mysql = require('mysql');
 const inquirer = require('inquirer');
 // require("./employeeTrackerDBConnection");
-
 const connection = mysql.createConnection({
     host: 'localhost',
 

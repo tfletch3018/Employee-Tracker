@@ -46,8 +46,8 @@ THEN I am presented with empty fields to enter a new note title and the note’s
 ## Usage
 
 `
-    ![Employee Tracker](assets\images\demo.gif)
-
+    <!-- ![Employee Tracker](assets\images\demo.gif) -->
+<img src="demo.gif" />
 
 
 
